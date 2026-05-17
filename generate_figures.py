@@ -22,7 +22,9 @@ FUNC_CLASSES = {
     'Levy':        LevyFunction,
 }
 
-OUT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ROOT   = os.path.dirname(os.path.abspath(__file__))
+OUT_DIR = os.path.join(_ROOT, 'figures')
+os.makedirs(OUT_DIR, exist_ok=True)
 
 # ─── plotting style ──────────────────────────────────────────────────────────
 plt.rcParams.update({
@@ -216,7 +218,7 @@ def make_rate_summary(fname, results_all, func_class, dimensions):
 # ═══════════════════════════════════════════════════════════════════════════════
 
 if __name__ == '__main__':
-    with open(os.path.join(OUT_DIR, 'results.pkl'), 'rb') as fh:
+    with open(os.path.join(_ROOT, 'results.pkl'), 'rb') as fh:
         data = pickle.load(fh)
 
     results    = data['results']

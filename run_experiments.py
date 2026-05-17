@@ -86,7 +86,7 @@ def run_all(seed=SEED, dimensions=DIMENSIONS, n_random=N_RANDOM,
             for sp_id, x0 in zip(start_ids, all_starts):
                 # build simplex with its own sub-RNG so simplex is reproducible
                 sub_rng = np.random.default_rng(
-                    seed + hash(fname) + n * 1000 + start_ids.index(sp_id)
+                    seed + abs(hash(fname)) + n * 1000 + start_ids.index(sp_id)
                 )
                 simplex = build_simplex(x0, sub_rng)
 
