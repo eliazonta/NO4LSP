@@ -16,7 +16,7 @@ Stopping criteria (both must be satisfied):
     |f_worst - f_best| < tol_f   (function value spread)
     max_i ||x_i - x_best|| < tol_x  (simplex diameter)
 
-Author: Elia Zonta
+Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
 
 import numpy as np
@@ -75,7 +75,7 @@ def nelder_mead(f, simplex0, alpha=1.0, gamma=2.0, rho=0.5, sigma=0.5,
         x_2worst            = simplex[-2]; f_2worst = f_vals[-2]
 
         history.append(x_best.copy())
-        f_history.append(f_best)
+        f_history.append(float(f_best))
 
         # -------------------------------------------- convergence check
         f_range      = abs(f_worst - f_best)

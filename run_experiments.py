@@ -6,7 +6,7 @@ dimensions and starting configurations, then saves all results to disk.
 
 Random seed: SEED (minimum student ID of your team).
 
-Author: Elia Zonta
+Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
 
 import numpy as np
@@ -17,7 +17,7 @@ from nelder_mead import nelder_mead
 from test_functions import ALL_FUNCTIONS, ZakharovFunction, DixonPriceFunction, LevyFunction
 
 # ─── configuration ────────────────────────────────────────────────────────────
-SEED        = 314159          # replace with min(314159, 359949, Fatima_mat)
+SEED        = 314159          # replace with min(314159, 359949, 352152)
 DIMENSIONS  = [2, 10, 20, 50]
 N_RANDOM    = 5               # number of additional random starting points
 MAX_ITER    = 50000           # max iterations per run

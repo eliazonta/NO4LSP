@@ -5,7 +5,7 @@ Generates all mandatory figures for the report:
   1. Top-view contour plots with Nelder-Mead paths (n=2 only)
   2. Experimental convergence rate plots (all successful runs)
 
-Author: Elia Zonta
+Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
 
 import numpy as np
@@ -112,7 +112,7 @@ def make_topview(fname, results_n2, func):
 
     ax.set_xlabel('$x_1$'); ax.set_ylabel('$x_2$')
     ax.set_title(f'{fname} — Nelder-Mead paths ($n=2$)')
-    ax.legend(loc='upper right', framealpha=0.9)
+    ax.legend(loc='upper left', framealpha=0.9)
     ax.set_xlim(cx - span, cx + span)
     ax.set_ylim(cy - span, cy + span)
 
