@@ -17,7 +17,7 @@ from nelder_mead import nelder_mead
 from test_functions import ALL_FUNCTIONS, ZakharovFunction, DixonPriceFunction, LevyFunction
 
 # ─── configuration ────────────────────────────────────────────────────────────
-SEED        = 314159          # replace with min(314159, 359949, Fatima_mat)
+SEED        = min(344867, 359949, 352152)          # replace with min(344867-elia, 359949-Giuseppe, 352152-Fatima)
 DIMENSIONS  = [2, 10, 20, 50]
 N_RANDOM    = 5               # number of additional random starting points
 MAX_ITER    = 50000           # max iterations per run
@@ -85,8 +85,9 @@ def run_all(seed=SEED, dimensions=DIMENSIONS, n_random=N_RANDOM,
 
             for sp_id, x0 in zip(start_ids, all_starts):
                 # build simplex with its own sub-RNG so simplex is reproducible
+                func_idx = [FC.name for FC in ALL_FUNCTIONS].index(fname)
                 sub_rng = np.random.default_rng(
-                    seed + abs(hash(fname)) + n * 1000 + start_ids.index(sp_id)
+                    seed + func_idx * 1000000 + n * 1000 + start_ids.index(sp_id)
                 )
                 simplex = build_simplex(x0, sub_rng)
 
@@ -101,7 +102,7 @@ def run_all(seed=SEED, dimensions=DIMENSIONS, n_random=N_RANDOM,
                 dim_results.append(res)
 
                 if verbose:
-                    icon = '✓' if res['success'] else '✗'
+                    icon = 'OK' if res['success'] else 'NO'
                     print(f"    [{icon}] {sp_id:8s}  iters={res['n_iter']:6d}"
                           f"  f_err={res['f_err']:.2e}"
                           f"  |grad|={res['grad_norm']:.2e}"
@@ -127,4 +128,4 @@ if __name__ == '__main__':
         pickle.dump({'results': results, 'seed': SEED,
                      'dimensions': DIMENSIONS, 'nm_params': NM_PARAMS}, fh)
 
-    print(f"\nAll experiments done in {total:.1f}s  →  saved to {out_path}")
+    print(f"\nAll experiments done in {total:.1f}s  ->  saved to {out_path}")
