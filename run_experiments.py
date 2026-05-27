@@ -84,7 +84,9 @@ def run_all(seed=SEED, dimensions=DIMENSIONS, n_random=N_RANDOM,
                 print(f"\n  n = {n}")
 
             for sp_id, x0 in zip(start_ids, all_starts):
-                # build simplex with its own sub-RNG so simplex is reproducible
+                # We create a deterministic RNG depending on the function, dimension,
+                # and starting point. This avoids reusing the same random perturbations
+                # for every simplex, while keeping each run reproducible.
                 func_idx = [FC.name for FC in ALL_FUNCTIONS].index(fname)
                 sub_rng = np.random.default_rng(
                     seed + func_idx * 1000000 + n * 1000 + start_ids.index(sp_id)
