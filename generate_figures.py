@@ -181,7 +181,7 @@ def make_conv_plots(fname, results_all, func_class, dimensions):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  FIGURE 3 — Local convergence rate estimates bar-chart (successful runs)
+#  FIGURE 3 — Local convergence rate estimates bar-chart (all runs)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def make_rate_summary(fname, results_all, func_class, dimensions):
