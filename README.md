@@ -109,11 +109,11 @@ Requires `results.pkl` to exist.
 The script reads the saved experimental results and writes LaTeX tables to tables.tex. The generated tables report, for each function, dimension, and starting point:
 
 - final gradient norm;
+- final objective error;
 - iteration count over the maximum iteration budget;
 - success/failure flag;
 - empirical convergence-rate diagnostic;
 - wall-clock runtime;
-- final objective error;
 
 The Avg (succ.) row is computed only over runs for which the internal
 stopping criterion was satisfied.
