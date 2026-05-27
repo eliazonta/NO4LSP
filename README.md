@@ -40,11 +40,11 @@ nelder-mead-optimizer/
 
 All three functions are *n*-dimensional with a known global minimum at *f\* = 0*:
 
-| Function     | Global minimiser         | Domain         | Suggested start         |
-|--------------|--------------------------|----------------|-------------------------|
-| Zakharov     | x\* = (0, …, 0)          | xᵢ ∈ [−5, 10] | x̄ = (0.5, …, 0.5)      |
-| Dixon-Price  | x\*ᵢ = 2^(−(2ⁱ−2)/2ⁱ)   | xᵢ ∈ [−10, 10]| x̄ = (2, …, 2)           |
-| Levy         | x\* = (1, …, 1)          | xᵢ ∈ [−10, 10]| x̄ = (−1, …, −1)         |
+| Function    | Global minimiser      | Domain         | Suggested start   |
+| ----------- | --------------------- | -------------- | ----------------- |
+| Zakharov    | x\* = (0, …, 0)       | xᵢ ∈ [−5, 10]  | x̄ = (0.5, …, 0.5) |
+| Dixon-Price | x\*ᵢ = 2^(−(2ⁱ−2)/2ⁱ) | xᵢ ∈ [−10, 10] | x̄ = (2, …, 2)     |
+| Levy        | x\* = (1, …, 1)       | xᵢ ∈ [−10, 10] | x̄ = (−1, …, −1)   |
 
 Each class also exposes an exact `gradient()` method used for diagnostics.
 
@@ -76,12 +76,12 @@ Results are saved to `results.pkl`.
 
 Configuration constants at the top of the file:
 
-| Constant      | Default   | Description                              |
-|---------------|-----------|------------------------------------------|
-| `SEED`        | `314159`  | Master random seed (set to min student ID)|
-| `DIMENSIONS`  | `[2, 10, 20, 50]` | Problem dimensions to test      |
-| `N_RANDOM`    | `5`       | Number of random starting points         |
-| `MAX_ITER`    | `50000`   | Maximum iterations per run               |
+| Constant     | Default           | Description                                |
+| ------------ | ----------------- | ------------------------------------------ |
+| `SEED`       | `344867`          | Master random seed (min student IDs) |
+| `DIMENSIONS` | `[2, 10, 20, 50]` | Problem dimensions to test                 |
+| `N_RANDOM`   | `5`               | Number of random starting points           |
+| `MAX_ITER`   | `50000`           | Maximum iterations per run                 |
 
 ### 2 — Generate figures
 
@@ -118,15 +118,15 @@ print(result['success']) # True if converged
 
 ## Algorithm Parameters
 
-| Parameter | Default | Role                    |
-|-----------|---------|-------------------------|
-| `alpha`   | 1.0     | Reflection coefficient  |
-| `gamma`   | 2.0     | Expansion coefficient   |
-| `rho`     | 0.5     | Contraction coefficient |
-| `sigma`   | 0.5     | Shrink coefficient      |
-| `tol_f`   | 1e-8    | Convergence tolerance on f spread |
-| `tol_x`   | 1e-8    | Convergence tolerance on simplex diameter |
-| `max_iter`| 50000   | Maximum iterations      |
+| Parameter  | Default | Role                                      |
+| ---------- | ------- | ----------------------------------------- |
+| `alpha`    | 1.0     | Reflection coefficient                    |
+| `gamma`    | 2.0     | Expansion coefficient                     |
+| `rho`      | 0.5     | Contraction coefficient                   |
+| `sigma`    | 0.5     | Shrink coefficient                        |
+| `tol_f`    | 1e-8    | Convergence tolerance on f spread         |
+| `tol_x`    | 1e-8    | Convergence tolerance on simplex diameter |
+| `max_iter` | 50000   | Maximum iterations                        |
 
 Convergence is declared when **both** `|f_worst − f_best| < tol_f` and
 `max‖xᵢ − x_best‖ < tol_x` hold simultaneously.
@@ -158,6 +158,8 @@ Nelder, J. A. & Mead, R. (1965). A simplex method for function minimization.
 
 ---
 
-## Author
+## Authors
 
 Elia Zonta
+Giuseppe Fontanella
+Fatima Ali

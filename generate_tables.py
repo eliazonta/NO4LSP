@@ -1,4 +1,4 @@
-"""
+r"""
 generate_tables.py
 ------------------
 Reads results.pkl and prints LaTeX table rows (Table 1 format from the
@@ -90,7 +90,10 @@ if __name__ == '__main__':
 
     results    = data['results']
     dimensions = data['dimensions']
-    max_iter   = data.get('nm_params', {}).get('max_iter', 50000)
+    max_iter   = data.get('max_iter', data.get('nm_params', {}).get('max_iter', 50000))
+    # commento al commit (DA CANCELLARE!!!)
+    # max_iter non si trova più dentro nm_params, quindi aggiunto max_iter dentro pickle
+    # in ogni caso controlla anche dentro nm_params per retrocompatibilità
 
     for fname, FuncClass in FUNC_CLASSES.items():
         print(f'\n\n%%% ============ {fname} ============')

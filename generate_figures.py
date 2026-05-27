@@ -5,7 +5,7 @@ Generates all mandatory figures for the report:
   1. Top-view contour plots with Nelder-Mead paths (n=2 only)
   2. Experimental convergence rate plots (all successful runs)
 
-Author: Elia Zonta
+Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
 
 import numpy as np
@@ -36,7 +36,14 @@ plt.rcParams.update({
     'text.usetex': False,
 })
 
-COLORS = plt.cm.tab10(np.linspace(0, 0.9, 6))   # 6 starting points
+COLORS = [
+    'tab:blue',    # x_bar
+    'tab:orange',  # rand_1
+    'tab:green',   # rand_2
+    'tab:red',     # rand_3
+    'tab:purple',  # rand_4
+    'tab:brown',   # rand_5
+]
 
 # ─── helper: experimental convergence rate ────────────────────────────────────
 
@@ -57,10 +64,13 @@ def exp_conv_rate(f_history, f_star, tail=0.3):
     e      = errors[start:]
     if len(e) < 4:
         return None
+    # If e_{k+1} ≈ C * e_k^p, then log(e_{k+1}) / log(e_k) ≈ p
+    # when errors are small; this is used only as an empirical diagnostic
     rates = np.log(e[1:] + 1e-300) / (np.log(e[:-1] + 1e-300) + 1e-300)
     rates = rates[(rates > 0) & (rates < 5)]
     if len(rates) == 0:
         return None
+    # Median is more robust than the mean against noisy local estimates.
     return float(np.median(rates))
 
 
@@ -112,7 +122,7 @@ def make_topview(fname, results_n2, func):
 
     ax.set_xlabel('$x_1$'); ax.set_ylabel('$x_2$')
     ax.set_title(f'{fname} — Nelder-Mead paths ($n=2$)')
-    ax.legend(loc='upper right', framealpha=0.9)
+    ax.legend(loc='upper left', framealpha=0.9)
     ax.set_xlim(cx - span, cx + span)
     ax.set_ylim(cy - span, cy + span)
 

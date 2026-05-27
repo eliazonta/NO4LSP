@@ -6,7 +6,7 @@ dimensions and starting configurations, then saves all results to disk.
 
 Random seed: SEED (minimum student ID of your team).
 
-Author: Elia Zonta
+Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
 
 import numpy as np
@@ -17,7 +17,7 @@ from nelder_mead import nelder_mead
 from test_functions import ALL_FUNCTIONS, ZakharovFunction, DixonPriceFunction, LevyFunction
 
 # ─── configuration ────────────────────────────────────────────────────────────
-SEED        = min(344867, 359949, 352152)          # replace with min(344867-elia, 359949-Giuseppe, 352152-Fatima)
+SEED        = min(344867, 359949, 352152)          # students IDs min(344867-elia, 359949-Giuseppe, 352152-Fatima)
 DIMENSIONS  = [2, 10, 20, 50]
 N_RANDOM    = 5               # number of additional random starting points
 MAX_ITER    = 50000           # max iterations per run
@@ -84,7 +84,9 @@ def run_all(seed=SEED, dimensions=DIMENSIONS, n_random=N_RANDOM,
                 print(f"\n  n = {n}")
 
             for sp_id, x0 in zip(start_ids, all_starts):
-                # build simplex with its own sub-RNG so simplex is reproducible
+                # We create a deterministic RNG depending on the function, dimension,
+                # and starting point. This avoids reusing the same random perturbations
+                # for every simplex, while keeping each run reproducible.
                 func_idx = [FC.name for FC in ALL_FUNCTIONS].index(fname)
                 sub_rng = np.random.default_rng(
                     seed + func_idx * 1000000 + n * 1000 + start_ids.index(sp_id)
@@ -126,6 +128,6 @@ if __name__ == '__main__':
     out_path = os.path.join(os.path.dirname(__file__), 'results.pkl')
     with open(out_path, 'wb') as fh:
         pickle.dump({'results': results, 'seed': SEED,
-                     'dimensions': DIMENSIONS, 'nm_params': NM_PARAMS}, fh)
+                     'dimensions': DIMENSIONS, 'nm_params': NM_PARAMS, 'max_iter': MAX_ITER  }, fh)
 
     print(f"\nAll experiments done in {total:.1f}s  ->  saved to {out_path}")
