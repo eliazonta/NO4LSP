@@ -31,8 +31,8 @@ nelder-mead-optimizer/
 ├── test_functions.py     # Zakharov, Dixon-Price, and Levy benchmark functions
 ├── run_experiments.py    # Experiment runner (saves results.pkl)
 ├── generate_figures.py   # Figure generation (reads results.pkl)
-├── figures/              # Output directory for generated plots
 ├── generate_tables.py    # LaTeX table generation (reads results.pkl)
+├── figures/              # Output directory for generated plots
 └── tables.tex            # Generated LaTeX tables for the report
 ```
 
