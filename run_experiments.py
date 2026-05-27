@@ -128,6 +128,6 @@ if __name__ == '__main__':
     out_path = os.path.join(os.path.dirname(__file__), 'results.pkl')
     with open(out_path, 'wb') as fh:
         pickle.dump({'results': results, 'seed': SEED,
-                     'dimensions': DIMENSIONS, 'nm_params': NM_PARAMS}, fh)
+                     'dimensions': DIMENSIONS, 'nm_params': NM_PARAMS, 'max_iter': MAX_ITER  }, fh)
 
     print(f"\nAll experiments done in {total:.1f}s  ->  saved to {out_path}")
