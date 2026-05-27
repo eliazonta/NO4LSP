@@ -16,7 +16,7 @@ Each class stores:
   - x_star   : known global minimiser
   - f_star   : known global minimum value
 
-Authors: Elia Zonta, Giuseppe FOntanella, Fatima Ali
+Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
 
 import numpy as np
