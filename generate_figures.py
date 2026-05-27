@@ -3,7 +3,7 @@ generate_figures.py
 -------------------
 Generates all mandatory figures for the report:
   1. Top-view contour plots with Nelder-Mead paths (n=2 only)
-  2. Experimental convergence rate plots (all successful runs)
+  2. Experimental convergence rate plots (all runs)
 
 Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
