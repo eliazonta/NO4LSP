@@ -59,7 +59,7 @@ def print_table(fname, n, dim_results, f_star, max_iter):
     for lbl, res in zip(labels, dim_results):
         rate = rate_est(res['f_history'], f_star)
         suc  = 'yes' if res['success'] else 'no'
-        if res['success'] and res['f_err'] < 1e-6 :
+        if res['success']:
             success_rows.append((res, rate))
         print(
             f"{lbl} & {res['grad_norm']:.2e} & {res['f_err']:.2e} & "
@@ -71,11 +71,13 @@ def print_table(fname, n, dim_results, f_star, max_iter):
         avg_gnorm = np.mean([r['grad_norm'] for r, _ in success_rows])
         avg_iter  = np.mean([r['n_iter']    for r, _ in success_rows])
         avg_time  = np.mean([r['time']       for r, _ in success_rows])
+        avg_ferr = np.mean([r['f_err'] for r, _ in success_rows])
         valid_rates = [rt for _, rt in success_rows if rt is not None]
         rate_avg = fmt_rate(np.mean(valid_rates)) if valid_rates else '--'
         print(r'\midrule')
         print(
             f"Avg (succ.) & {avg_gnorm:.2e} & "
+            f"{avg_ferr:.2e} & "
             f"{avg_iter:.0f}/{max_iter} & -- & "
             f"{rate_avg} & {avg_time:.2f}s \\\\"
         )
