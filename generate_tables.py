@@ -52,17 +52,17 @@ def print_table(fname, n, dim_results, f_star, max_iter):
     print(f'\n% {fname},  n = {n}')
     print(r'\begin{tabular}{lllllll}')
     print(r'\toprule')
-    print(r'Start pt. & grad.\ norm & iters/max & success & rate (exp.) & time \\')
+    print(r'Start pt. & grad.\ norm & f err & iters/max & success & rate (exp.) & time \\')
     print(r'\midrule')
 
     success_rows = []
     for lbl, res in zip(labels, dim_results):
         rate = rate_est(res['f_history'], f_star)
         suc  = 'yes' if res['success'] else 'no'
-        if res['success']:
+        if res['success'] and res['f_err'] < 1e-6 :
             success_rows.append((res, rate))
         print(
-            f"{lbl} & {res['grad_norm']:.2e} & "
+            f"{lbl} & {res['grad_norm']:.2e} & {res['f_err']:.2e} & "
             f"{res['n_iter']}/{max_iter} & {suc} & "
             f"{fmt_rate(rate)} & {res['time']:.2f}s \\\\"
         )
@@ -91,9 +91,6 @@ if __name__ == '__main__':
     results    = data['results']
     dimensions = data['dimensions']
     max_iter   = data.get('max_iter', data.get('nm_params', {}).get('max_iter', 50000))
-    # commento al commit (DA CANCELLARE!!!)
-    # max_iter non si trova più dentro nm_params, quindi aggiunto max_iter dentro pickle
-    # in ogni caso controlla anche dentro nm_params per retrocompatibilità
 
     for fname, FuncClass in FUNC_CLASSES.items():
         print(f'\n\n%%% ============ {fname} ============')

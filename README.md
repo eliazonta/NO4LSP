@@ -19,6 +19,7 @@ This repository contains:
 - Three *n*-dimensional benchmark functions (`test_functions.py`)
 - Experiment runner with reproducible random seeds (`run_experiments.py`)
 - Figure generator for convergence and top-view plots (`generate_figures.py`)
+- LaTeX table generator for the report (`generate_tables.py`)
 
 ---
 
@@ -30,7 +31,7 @@ nelder-mead-optimizer/
 ├── test_functions.py     # Zakharov, Dixon-Price, and Levy benchmark functions
 ├── run_experiments.py    # Experiment runner (saves results.pkl)
 ├── generate_figures.py   # Figure generation (reads results.pkl)
-├── requirements.txt      # Python dependencies
+├── tables.tex            # Generated LaTeX tables for the report
 └── figures/              # Output directory for generated plots (gitignored)
 ```
 
@@ -55,7 +56,6 @@ Each class also exposes an exact `gradient()` method used for diagnostics.
 ```bash
 git clone https://github.com/<your-username>/nelder-mead-optimizer.git
 cd nelder-mead-optimizer
-pip install -r requirements.txt
 ```
 
 Python 3.10+ recommended.
@@ -90,13 +90,32 @@ python generate_figures.py
 ```
 
 Requires `results.pkl` to exist (run step 1 first).
-Saves the following PDFs to the project root:
+Saves the following PDFs to the `figures/` directory:
 
 - `topview_<function>.pdf` — contour map with NM paths (n = 2)
 - `conv_<function>_n<dim>.pdf` — convergence curves per dimension
 - `rates_<function>.pdf` — estimated local convergence rate bar charts
 
-### 3 — Use the optimizer standalone
+### 3 — Generate LaTeX tables
+
+```bash
+python generate_tables.py > tables.tex
+```
+
+Requires `results.pkl` to exist.
+
+The script reads the saved experimental results and writes LaTeX tables to tables.tex. The generated tables report, for each function, dimension, and starting point:
+
+- final gradient norm;
+- iteration count over the maximum iteration budget;
+- success/failure flag;
+- empirical convergence-rate diagnostic;
+- wall-clock runtime.
+
+The Avg (succ.) row is computed only over runs for which the internal
+stopping criterion was satisfied.
+
+### 4 — Use the optimizer standalone
 
 ```python
 import numpy as np
@@ -160,6 +179,6 @@ Nelder, J. A. & Mead, R. (1965). A simplex method for function minimization.
 
 ## Authors
 
-Elia Zonta
-Giuseppe Fontanella
+Elia Zonta,
+Giuseppe Fontanella,
 Fatima Ali
