@@ -24,9 +24,9 @@ _ROOT = os.path.dirname(os.path.abspath(__file__))
 
 def rate_est(f_history, f_star, tail=0.3):
     """
-    Estimate experimental convergence order p from |f_k - f*|.
-    Uses the last `tail` fraction of the error sequence.
-    Returns a float or None if the sequence is too short / already converged.
+    Estimate an empirical convergence order p from |f_k - f*|.
+    Uses the tail of the valid finite positive error sequence.
+    Returns a float or None.
     """
     err = np.abs(np.array(f_history) - f_star)
     mask = (err > 1e-15) & np.isfinite(err)
