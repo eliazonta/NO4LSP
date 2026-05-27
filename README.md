@@ -78,7 +78,7 @@ Configuration constants at the top of the file:
 
 | Constant     | Default           | Description                                |
 | ------------ | ----------------- | ------------------------------------------ |
-| `SEED`       | `314159`          | Master random seed (set to min student ID) |
+| `SEED`       | `344867`          | Master random seed (min student IDs) |
 | `DIMENSIONS` | `[2, 10, 20, 50]` | Problem dimensions to test                 |
 | `N_RANDOM`   | `5`               | Number of random starting points           |
 | `MAX_ITER`   | `50000`           | Maximum iterations per run                 |
