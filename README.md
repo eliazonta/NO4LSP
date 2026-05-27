@@ -31,8 +31,9 @@ nelder-mead-optimizer/
 ├── test_functions.py     # Zakharov, Dixon-Price, and Levy benchmark functions
 ├── run_experiments.py    # Experiment runner (saves results.pkl)
 ├── generate_figures.py   # Figure generation (reads results.pkl)
-├── tables.tex            # Generated LaTeX tables for the report
-└── figures/              # Output directory for generated plots (gitignored)
+├── figures/              # Output directory for generated plots
+├── generate_tables.py    # LaTeX table generation (reads results.pkl)
+└── tables.tex            # Generated LaTeX tables for the report
 ```
 
 ---
@@ -59,6 +60,7 @@ cd nelder-mead-optimizer
 ```
 
 Python 3.10+ recommended.
+Numpy and Matplotlib Python packages required.
 
 ---
 
@@ -110,7 +112,8 @@ The script reads the saved experimental results and writes LaTeX tables to table
 - iteration count over the maximum iteration budget;
 - success/failure flag;
 - empirical convergence-rate diagnostic;
-- wall-clock runtime.
+- wall-clock runtime;
+- final objective error;
 
 The Avg (succ.) row is computed only over runs for which the internal
 stopping criterion was satisfied.
