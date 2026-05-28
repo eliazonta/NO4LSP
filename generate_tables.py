@@ -24,9 +24,9 @@ _ROOT = os.path.dirname(os.path.abspath(__file__))
 
 def rate_est(f_history, f_star, tail=0.3):
     """
-    Estimate experimental convergence order p from |f_k - f*|.
-    Uses the last `tail` fraction of the error sequence.
-    Returns a float or None if the sequence is too short / already converged.
+    Estimate an empirical convergence order p from |f_k - f*|.
+    Uses the tail of the valid finite positive error sequence.
+    Returns a float or None if the tail is too short or already converged.
     """
     err = np.abs(np.array(f_history) - f_star)
     mask = (err > 1e-15) & np.isfinite(err)
@@ -52,7 +52,7 @@ def print_table(fname, n, dim_results, f_star, max_iter):
     print(f'\n% {fname},  n = {n}')
     print(r'\begin{tabular}{lllllll}')
     print(r'\toprule')
-    print(r'Start pt. & grad.\ norm & iters/max & success & rate (exp.) & time \\')
+    print(r'Start pt. & grad.\ norm & f err & iters/max & success & rate (exp.) & time \\')
     print(r'\midrule')
 
     success_rows = []
@@ -62,7 +62,7 @@ def print_table(fname, n, dim_results, f_star, max_iter):
         if res['success']:
             success_rows.append((res, rate))
         print(
-            f"{lbl} & {res['grad_norm']:.2e} & "
+            f"{lbl} & {res['grad_norm']:.2e} & {res['f_err']:.2e} & "
             f"{res['n_iter']}/{max_iter} & {suc} & "
             f"{fmt_rate(rate)} & {res['time']:.2f}s \\\\"
         )
@@ -71,11 +71,13 @@ def print_table(fname, n, dim_results, f_star, max_iter):
         avg_gnorm = np.mean([r['grad_norm'] for r, _ in success_rows])
         avg_iter  = np.mean([r['n_iter']    for r, _ in success_rows])
         avg_time  = np.mean([r['time']       for r, _ in success_rows])
+        avg_ferr = np.mean([r['f_err'] for r, _ in success_rows])
         valid_rates = [rt for _, rt in success_rows if rt is not None]
         rate_avg = fmt_rate(np.mean(valid_rates)) if valid_rates else '--'
         print(r'\midrule')
         print(
             f"Avg (succ.) & {avg_gnorm:.2e} & "
+            f"{avg_ferr:.2e} & "
             f"{avg_iter:.0f}/{max_iter} & -- & "
             f"{rate_avg} & {avg_time:.2f}s \\\\"
         )

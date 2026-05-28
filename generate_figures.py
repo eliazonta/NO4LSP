@@ -3,7 +3,7 @@ generate_figures.py
 -------------------
 Generates all mandatory figures for the report:
   1. Top-view contour plots with Nelder-Mead paths (n=2 only)
-  2. Experimental convergence rate plots (all successful runs)
+  2. Experimental convergence rate plots (all runs)
 
 Authors: Elia Zonta, Giuseppe Fontanella, Fatima Ali
 """
@@ -51,7 +51,7 @@ def exp_conv_rate(f_history, f_star, tail=0.3):
     """
     Estimate experimental convergence order p from |f_k - f*|.
     Uses the last `tail` fraction of the error sequence.
-    Returns array of local rates.
+    Returns float median of an array of local rates.
     """
     errors = np.abs(np.array(f_history) - f_star)
     # trim leading NaN/inf and trailing near-zero
@@ -181,7 +181,7 @@ def make_conv_plots(fname, results_all, func_class, dimensions):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  FIGURE 3 — Local convergence rate estimates bar-chart (successful runs)
+#  FIGURE 3 — Local convergence rate estimates bar-chart (all runs)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def make_rate_summary(fname, results_all, func_class, dimensions):
